@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "795647980569",
+    "firebase_url": "https://maps-1522755349397.firebaseio.com",
+    "project_id": "maps-1522755349397",
+    "storage_bucket": "maps-1522755349397.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:795647980569:android:fe8588e472459252",
+        "android_client_info": {
+          "package_name": "com.makhovyk.android.maps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "795647980569-phpccrm6a6ujje1kabdc1of2qoedhum9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_qBpA2t_Dnh-IGQTHHmPzyt4fpeM_Bhw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
