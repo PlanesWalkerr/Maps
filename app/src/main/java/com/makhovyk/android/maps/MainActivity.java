@@ -30,10 +30,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        com.google.android.gms.location.LocationListener{
+        com.google.android.gms.location.LocationListener {
 
     private final String TAG = "mapLog";
     private static final int MY_PERMISSION_REQUEST_CODE = 11;
@@ -73,9 +75,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-        LatLng place = new LatLng(latitude, longtitude);
-        map.addMarker(new MarkerOptions().position(place).title("You are here"));
-        map.moveCamera(CameraUpdateFactory.newLatLng(place));
+//        LatLng place = new LatLng(latitude, longtitude);
+//        map.addMarker(new MarkerOptions().position(place).title("You are here"));
+//        map.moveCamera(CameraUpdateFactory.newLatLng(place));
 
     }
 
@@ -114,23 +116,24 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
-                        if (location != null){
+                        if (location != null) {
                             latitude = location.getLatitude();
                             longtitude = location.getLongitude();
 
-                            if (marker != null){
+                            if (marker != null) {
                                 marker.remove();
                             }
+                            LatLng point = new LatLng(latitude, longtitude);
                             marker = map.addMarker(new MarkerOptions()
-                                    .position(new LatLng(latitude,longtitude))
-                                    .title("YOU"));
-                            map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude,longtitude), 12.0f));
+                                    .position(point)
+                                    .title("You are here"));
+                            map.animateCamera(CameraUpdateFactory.newLatLngZoom(point, 12.0f));
                         }
                     }
                 });
     }
 
-    protected synchronized void  buildGoogleApiClient() {
+    protected synchronized void buildGoogleApiClient() {
         googleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -139,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         googleApiClient.connect();
     }
 
-    private void startLocationUpdates(){
+    private void startLocationUpdates() {
         if (android.support.v4.app.ActivityCompat
                 .checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && android.support.v4.app.ActivityCompat
@@ -151,7 +154,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         LocationServices.getFusedLocationProviderClient(this).requestLocationUpdates(locationRequest, new LocationCallback() {
                     @Override
                     public void onLocationResult(LocationResult locationResult) {
-                        // do work here
                         onLocationChanged(locationResult.getLastLocation());
                     }
                 },
@@ -213,4 +215,5 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         lastLocation = location;
         displayLocation();
     }
+
 }
